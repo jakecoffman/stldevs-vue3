@@ -7,8 +7,8 @@
         harvesting public information from Github.
       </p>
       <p>
-        If a user on Github has self-identified as being from St. Louis, they are included here. You may also log in to
-        this site and request to be included if you are from St. Louis or identify as a St. Louisan.
+        If a user on Github has self-identified as being from St. Louis, they are included here. To do this, add
+        <code>St. Louis</code> to your location in your Github profile.
       </p>
 
       <h3>Did you know?</h3>
