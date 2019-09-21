@@ -5,15 +5,15 @@
     </div>
     <article v-else>
       <h3>{{response.count}} {{$route.params.lang}} users in St. Louis</h3>
-      <div v-for="lang in response.languages" :key="lang.Owner">
+      <div v-for="lang in paginated" :key="lang.Owner">
         <router-link :to="`/developers/${lang.Owner}`">{{lang.Owner}}</router-link>
-        has <b>{{lang.Repos.length}}</b> {{$route.params.lang}} repos, with popular ones like:
+        has <b>{{lang.Count}}</b> <icon name="star"/> on {{$route.params.lang}} repos, with popular ones like:
         <ul>
-          <li v-for="(r, index) in lang.Repos" :key="r.Name" v-if="index < 3">
+          <li v-for="r in lang.Repos" :key="r.Name">
             <a :href="`https://github.com/${lang.Owner}/${r.Name}`" target="_blank">
               {{r.Name}}
             </a>
-            (<b>{{r.StargazersCount}}</b>) <small>{{r.Description || '(No description)'}}</small>
+            (<b>{{r.StargazersCount}}</b> <icon name="star"/>) <small>{{r.Description || '(No description)'}}</small>
           </li>
         </ul>
       </div>
@@ -28,7 +28,32 @@ export default {
   name: 'LangPage',
   data () {
     return {
-      response: null
+      response: null,
+      page: 0,
+      pageSize: 100
+    }
+  },
+  computed: {
+    paginated() {
+      if (!this.response) {
+        return []
+      }
+      const start = this.page * this.pageSize
+      return this.response.languages.slice(start, start + this.pageSize)
+    }
+  },
+  methods: {
+    next() {
+      if (this.page * this.pageSize > this.response.languages.length) {
+        return
+      }
+      this.page++
+    },
+    prev() {
+      if (this.page === 0) {
+        return
+      }
+      this.page--
     }
   },
   created () {
