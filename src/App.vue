@@ -132,7 +132,8 @@ export default {
     justify-content: center;
 
     color: white;
-    background-color: purple;
+    background: url('/keyboard.jpg') no-repeat center center fixed;
+    background-size: cover;
   }
 
   .page {
