@@ -6,15 +6,15 @@
         <icon name="home"></icon>
         <span>Home</span>
       </router-link>
-      <router-link to="/languages">
+      <router-link to="/languages" @click.native="listLanguages()">
         <icon name="code"></icon>
         <span>Languages</span>
       </router-link>
-      <router-link to="/developers">
+      <router-link to="/developers"  @click.native="listDevelopers()">
         <icon name="smile"></icon>
         <span>Developers</span>
       </router-link>
-      <router-link to="/organizations">
+      <router-link to="/organizations"  @click.native="listOrgs()">
         <icon name="users"></icon>
         <span>Organizations</span>
       </router-link>
@@ -35,8 +35,14 @@
 </template>
 
 <script>
+import stldevs from '@/lib/stldevs';
+
 export default {
-  name: 'App'
+  methods: {
+    listLanguages: stldevs.listLanguages,
+    listDevelopers: stldevs.listDevelopers,
+    listOrgs: stldevs.listOrganizations
+  }
 }
 </script>
 
@@ -60,6 +66,8 @@ export default {
     margin: 0;
     padding: 0;
     height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   #app {
@@ -132,7 +140,7 @@ export default {
     justify-content: center;
 
     color: white;
-    background: url('/keyboard.jpg') no-repeat center center fixed;
+    background: url('/keyboard.jpg') center center fixed;
     background-size: cover;
   }
 
