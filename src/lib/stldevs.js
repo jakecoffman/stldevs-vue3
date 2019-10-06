@@ -7,48 +7,43 @@ const cache = {
 
 function listLanguages () {
   if (cache.languages) {
-    return Promise.resolve(cache.languages)
+    return cache.languages
   }
-  const p = axios.get('/stldevs-api/toplangs')
-  p.then(r => (cache.languages = r))
-  return p
+  cache.languages = axios.get('/stldevs-api/toplangs')
+  return cache.languages
 }
 
 function listDevelopers () {
   if (cache.developers) {
-    return Promise.resolve(cache.developers)
+    return cache.developers
   }
-  const p = axios.get('/stldevs-api/topdevs')
-  p.then(r => (cache.developers = r))
-  return p
+  cache.developers = axios.get('/stldevs-api/topdevs')
+  return cache.developers
 }
 
 function listOrganizations () {
   if (cache.organizations) {
-    return Promise.resolve(cache.organizations)
+    return cache.organizations
   }
-  const p = axios.get('/stldevs-api/toporgs')
-  p.then(r => (cache.organizations = r))
-  return p
+  cache.organizations = axios.get('/stldevs-api/toporgs')
+  return cache.organizations
 }
 
 function getProfile (login) {
   if (cache.profiles[login]) {
-    return Promise.resolve(cache.profiles[login])
+    return cache.profiles[login]
   }
-  const p = axios.get(`/stldevs-api/profile/${login}`)
-  p.then(r => (cache.profiles[login] = r))
-  return p
+  cache.profiles[login] = axios.get(`/stldevs-api/profile/${login}`)
+  return cache.profiles[login]
 }
 
 function getLang (lang) {
   lang = lang.replace('#', '%23')
   if (cache.langs[lang]) {
-    return Promise.resolve(cache.profiles[lang])
+    return cache.langs[lang]
   }
-  const p = axios.get(`/stldevs-api/lang/${lang}`)
-  p.then(r => (cache.profiles[lang] = r))
-  return p
+  cache.langs[lang] = axios.get(`/stldevs-api/lang/${lang}`)
+  return cache.langs[lang]
 }
 
 function search (type, query) {

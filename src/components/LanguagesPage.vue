@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         <tr v-for="l in response.langs" :key="l.Language">
-          <td><router-link :to="{name: 'Language', params: {lang: l.Language}}">{{l.Language}}</router-link></td>
+          <td><router-link :to="{name: 'Language', params: {lang: l.Language}}" @click.native="getLang(l.Language)">{{l.Language}}</router-link></td>
           <td>{{l.Count}}</td>
           <td>{{l.Users}}</td>
         </tr>
@@ -35,6 +35,9 @@ export default {
     return {
       response: null
     }
+  },
+  methods: {
+    getLang: stldevs.getLang
   },
   created () {
     stldevs.listLanguages().then(r => (this.response = r.data))
