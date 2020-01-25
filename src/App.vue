@@ -140,7 +140,7 @@ export default {
     justify-content: center;
 
     color: white;
-    background: url('/keyboard.jpg') center center fixed;
+    background: url('/keyboard.jpg');
     background-size: cover;
   }
 
