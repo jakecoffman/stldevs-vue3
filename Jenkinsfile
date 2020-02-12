@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm ci && npm run build'
+                nodejs(nodeJSInstallationName: '13') {
+                    sh 'npm ci && npm run build'
+                }
             }
         }
         stage('Deploy') {
