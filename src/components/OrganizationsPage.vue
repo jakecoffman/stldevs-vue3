@@ -17,7 +17,11 @@
         </thead>
         <tbody>
         <tr v-for="l in response.devs" :key="l.Login">
-          <td><router-link :to="`/developers/${l.Login}`">{{l.Name || l.Login}}</router-link></td>
+          <td class="ellipsis">
+            <router-link :to="`/developers/${l.Login}`">
+              {{l.Name || l.Login}}
+            </router-link>
+          </td>
           <td>{{l.Stars}}</td>
           <td>{{l.Forks}}</td>
           <td>{{l.PublicRepos}}</td>
@@ -44,6 +48,11 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .ellipsis {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>
