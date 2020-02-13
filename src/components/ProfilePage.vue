@@ -7,7 +7,7 @@
       <section class="profile">
         <img class="avatar" :src="response.profile.User.avatar_url">
         <ul>
-          <li v-if="me.IsAdmin">
+          <li v-if="me && me.IsAdmin">
             User is <span v-if="response.profile.User.Hide">hidden</span><span v-else>visible</span>.
             <button @click="toggleHide(!response.profile.User.Hide)">
               Toggle
