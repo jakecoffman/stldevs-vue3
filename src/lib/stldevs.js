@@ -56,8 +56,9 @@ function login() {
   return cache.me
 }
 
-function logout() {
-  cache.me = axios.get(`/stldevs-api/logout`)
+async function logout() {
+  await axios.get(`/stldevs-api/logout`)
+  cache.me = null
 }
 
 function getMe(login) {

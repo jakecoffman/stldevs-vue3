@@ -8,11 +8,12 @@
       <div v-else>
         Welcome {{me.name || me.login}}!
         <div v-if="!me.Hide">
-          To opt out of stldevs click here:
+          <p>To opt out of stldevs click here:</p>
           <button @click="optOut()">Opt Out</button>
         </div>
         <div v-else>
-          To opt back in to stldevs click here:
+          <p>You should be hidden now.</p>
+          <p>To opt back in to stldevs click here:</p>
           <button @click="optIn()">Opt In</button>
         </div>
 
@@ -49,7 +50,7 @@ export default {
       }, {
         withCredentials: true
       })
-      this.me = r.data
+      this.me = r.data.User
     },
     async optIn() {
       const r = await axios.patch(`/stldevs-api/devs/${this.me.login}`, {
@@ -57,7 +58,7 @@ export default {
       }, {
         withCredentials: true
       })
-      this.me = r.data
+      this.me = r.data.User
     },
   }
 }
