@@ -42,6 +42,10 @@ export default new Router({
     name: 'Organizations',
     component: OrgPage
   }, {
+    path: '/organizations/:login',
+    name: 'Organization',
+    component: ProfilePage
+  }, {
     path: '/search',
     name: 'Search',
     component: SearchPage

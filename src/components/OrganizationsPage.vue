@@ -18,7 +18,7 @@
         <tbody>
         <tr v-for="l in response.devs" :key="l.Login">
           <td class="ellipsis">
-            <router-link :to="`/developers/${l.Login}`">
+            <router-link :to="`/organizations/${l.Login}`">
               {{l.Name || l.Login}}
             </router-link>
           </td>

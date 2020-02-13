@@ -57,7 +57,7 @@ export default {
   },
   created () {
     stldevs.getProfile(this.$route.params.login).then(r => (this.response = r.data))
-    stldevs.getMe().then(r => this.me = r.data)
+    stldevs.getMe().then(r => this.me = r.data).catch(() => {})
   },
   methods: {
     async toggleHide(v) {
