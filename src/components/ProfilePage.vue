@@ -7,6 +7,12 @@
       <section class="profile">
         <img class="avatar" :src="response.profile.User.avatar_url">
         <ul>
+          <li v-if="me.IsAdmin">
+            User is <span v-if="response.profile.User.Hide">hidden</span><span v-else>visible</span>.
+            <button @click="toggleHide(!response.profile.User.Hide)">
+              Toggle
+            </button>
+          </li>
           <li><a :href="`https://github.com/${response.profile.User.login}`" target="_blank">
             {{response.profile.User.name || response.profile.User.login}} <icon name="external-link-alt" class="sup" scale="0.75"/>
           </a></li>
@@ -39,16 +45,29 @@
 
 <script>
 import stldevs from '@/lib/stldevs'
+import axios from "axios";
 
 export default {
   name: 'ProfilePage',
   data () {
     return {
-      response: null
+      response: null,
+      me: null
     }
   },
   created () {
     stldevs.getProfile(this.$route.params.login).then(r => (this.response = r.data))
+    stldevs.getMe().then(r => this.me = r.data)
+  },
+  methods: {
+    toggleHide(v) {
+      const r = axios.patch(`/stldevs-api/devs/${this.$route.params.login}`, {
+        Hide: v
+      }, {
+        withCredentials: true
+      })
+      this.response = r.data
+    }
   }
 }
 </script>
