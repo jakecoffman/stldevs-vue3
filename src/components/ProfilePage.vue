@@ -60,8 +60,8 @@ export default {
     stldevs.getMe().then(r => this.me = r.data)
   },
   methods: {
-    toggleHide(v) {
-      const r = axios.patch(`/stldevs-api/devs/${this.$route.params.login}`, {
+    async toggleHide(v) {
+      const r = await axios.patch(`/stldevs-api/devs/${this.$route.params.login}`, {
         Hide: v
       }, {
         withCredentials: true
