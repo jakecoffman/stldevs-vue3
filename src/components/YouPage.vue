@@ -6,7 +6,7 @@
         <a href="/stldevs-api/login">Login With GitHub</a>
       </div>
       <div v-else>
-        Welcome {{me.Name || me.Login}}!
+        Welcome {{me.name || me.login}}!
         <div v-if="!me.Hide">
           To opt out of stldevs click here:
           <button @click="optOut()">Opt Out</button>
@@ -39,15 +39,24 @@ export default {
     stldevs.getMe().then(r => this.me = r.data)
   },
   methods: {
-    logout() {
-      stldevs.logout().then(() => this.me = null)
+    async logout() {
+      await stldevs.logout()
+      location.reload()
     },
     async optOut() {
-      const r = await axios.patch(`/stldevs-api/devs/`, {Hide: true}, {withCredentials: true})
+      const r = await axios.patch(`/stldevs-api/devs/${this.me.login}`, {
+        Hide: true
+      }, {
+        withCredentials: true
+      })
       this.me = r.data
     },
     async optIn() {
-      const r = await axios.patch(`/stldevs-api/devs/`, {Hide: false}, {withCredentials: true})
+      const r = await axios.patch(`/stldevs-api/devs/${this.me.login}`, {
+        Hide: false
+      }, {
+        withCredentials: true
+      })
       this.me = r.data
     },
   }
