@@ -57,16 +57,16 @@ function login() {
 }
 
 async function logout() {
-  await axios.get(`/stldevs-api/logout`)
+  await axios.get(`/stldevs-api/logout`, {withCredentials: true})
   cache.me = null
 }
 
-function getMe(login) {
-  if (cache.profiles[login]) {
-    return cache.profiles[login]
+function getMe() {
+  if (cache.me) {
+    return cache.me
   }
-  cache.profiles[login] = axios.get(`/stldevs-api/me`)
-  return cache.profiles[login]
+  cache.me = axios.get(`/stldevs-api/me`, {withCredentials: true})
+  return cache.me
 }
 
 export default {
