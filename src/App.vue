@@ -11,16 +11,20 @@
         <span>Languages</span>
       </router-link>
       <router-link to="/developers"  @click.native="listDevelopers()">
-        <icon name="smile"></icon>
+        <icon name="users"></icon>
         <span>Developers</span>
       </router-link>
       <router-link to="/organizations"  @click.native="listOrgs()">
-        <icon name="users"></icon>
+        <icon name="sitemap"></icon>
         <span>Organizations</span>
       </router-link>
       <router-link to="/search">
         <icon name="search"></icon>
         <span>Search</span>
+      </router-link>
+      <router-link to="/you">
+        <icon name="smile"></icon>
+        <span>You</span>
       </router-link>
     </nav>
     <div class="wrap">

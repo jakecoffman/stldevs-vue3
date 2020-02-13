@@ -2,10 +2,11 @@ import axios from 'axios'
 
 const cache = {
   profiles: {},
-  langs: {}
+  langs: {},
+  me: null
 }
 
-function listLanguages () {
+function listLanguages() {
   if (cache.languages) {
     return cache.languages
   }
@@ -13,7 +14,7 @@ function listLanguages () {
   return cache.languages
 }
 
-function listDevelopers () {
+function listDevelopers() {
   if (cache.developers) {
     return cache.developers
   }
@@ -21,7 +22,7 @@ function listDevelopers () {
   return cache.developers
 }
 
-function listOrganizations () {
+function listOrganizations() {
   if (cache.organizations) {
     return cache.organizations
   }
@@ -29,7 +30,7 @@ function listOrganizations () {
   return cache.organizations
 }
 
-function getProfile (login) {
+function getProfile(login) {
   if (cache.profiles[login]) {
     return cache.profiles[login]
   }
@@ -37,7 +38,7 @@ function getProfile (login) {
   return cache.profiles[login]
 }
 
-function getLang (lang) {
+function getLang(lang) {
   lang = lang.replace('#', '%23')
   if (cache.langs[lang]) {
     return cache.langs[lang]
@@ -46,8 +47,25 @@ function getLang (lang) {
   return cache.langs[lang]
 }
 
-function search (type, query) {
+function search(type, query) {
   return axios.get(`/stldevs-api/search?type=${type}&q=${query}`)
+}
+
+function login() {
+  cache.me = axios.get(`/stldevs-api/login`)
+  return cache.me
+}
+
+function logout() {
+  cache.me = axios.get(`/stldevs-api/logout`)
+}
+
+function getMe(login) {
+  if (cache.profiles[login]) {
+    return cache.profiles[login]
+  }
+  cache.profiles[login] = axios.get(`/stldevs-api/me`)
+  return cache.profiles[login]
 }
 
 export default {
@@ -56,5 +74,8 @@ export default {
   listOrganizations,
   getProfile,
   getLang,
-  search
+  search,
+  login,
+  logout,
+  getMe
 }
