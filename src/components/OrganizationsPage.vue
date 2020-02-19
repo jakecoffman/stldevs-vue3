@@ -18,7 +18,7 @@
         <tbody>
         <tr v-for="l in response.devs" :key="l.Login">
           <td class="ellipsis">
-            <router-link :to="`/organizations/${l.Login}`">
+            <router-link :to="`/organizations/${l.Login}`" @click.native="getProfile(l.Login)">
               {{l.Name || l.Login}}
             </router-link>
           </td>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {listOrganizations, getProfile} from '@/lib/stldevs'
 
 export default {
   name: 'LanguagesPage',
@@ -42,8 +42,11 @@ export default {
       response: null
     }
   },
-  created () {
-    stldevs.listOrganizations().then(r => (this.response = r.data))
+  async created () {
+    this.response = await listOrganizations()
+  },
+  methods: {
+    getProfile
   }
 }
 </script>

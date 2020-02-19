@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {getMe, logout} from '@/lib/stldevs'
 import axios from "axios";
 
 export default {
@@ -36,12 +36,12 @@ export default {
       me: null
     }
   },
-  created () {
-    stldevs.getMe().then(r => this.me = r.data)
+  async created () {
+    this.me = await getMe()
   },
   methods: {
     async logout() {
-      await stldevs.logout()
+      await logout()
       location.reload()
     },
     async optOut() {

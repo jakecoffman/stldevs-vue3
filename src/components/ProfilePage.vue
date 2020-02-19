@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {getProfile, getMe} from '@/lib/stldevs'
 import axios from "axios";
 
 export default {
@@ -56,8 +56,8 @@ export default {
     }
   },
   created () {
-    stldevs.getProfile(this.$route.params.login).then(r => (this.response = r.data))
-    stldevs.getMe().then(r => this.me = r.data).catch(() => {})
+    getProfile(this.$route.params.login).then(r => this.response = r)
+    getMe().then(r => this.me = r).catch(() => {})
   },
   methods: {
     async toggleHide(v) {
@@ -71,8 +71,6 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   h4 {
     margin: 0;

@@ -17,8 +17,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="l in response.devs" :key="l.Login">
-          <td><router-link :to="`/developers/${l.Login}`">{{l.Name || l.Login}}</router-link></td>
+        <tr v-for="l in response" :key="l.Login">
+          <td><router-link :to="`/developers/${l.Login}`" @click.native="getProfile(l.Login)">{{l.Name || l.Login}}</router-link></td>
           <td>{{l.Stars}}</td>
           <td>{{l.Forks}}</td>
           <td class="hide-phone">{{l.Followers}}</td>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {listDevelopers, getProfile} from '@/lib/stldevs'
 
 export default {
   name: 'DevelopersPage',
@@ -40,12 +40,13 @@ export default {
       response: null
     }
   },
-  created () {
-    stldevs.listDevelopers().then(r => (this.response = r.data))
+  async created () {
+    this.response = await listDevelopers()
+  },
+  methods: {
+    getProfile
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

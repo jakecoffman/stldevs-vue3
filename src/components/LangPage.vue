@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {getLang} from '@/lib/stldevs'
 
 export default {
   name: 'LangPage',
@@ -56,13 +56,11 @@ export default {
       this.page--
     }
   },
-  created () {
-    stldevs.getLang(this.$route.params.lang).then(r => (this.response = r.data))
+  async created () {
+    this.response = await getLang(this.$route.params.lang)
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .profile {
     display: flex;

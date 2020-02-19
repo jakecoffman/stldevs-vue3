@@ -2,81 +2,48 @@ import axios from 'axios'
 
 const cache = {
   profiles: {},
-  langs: {},
+  lang: {},
   me: null
 }
 
-function listLanguages() {
-  if (cache.languages) {
-    return cache.languages
+// help cut down on some boiler-plate
+function cached(entry, url) {
+  return () => {
+    if (cache[entry]) {
+      return cache[entry]
+    }
+    cache[entry] = axios.get(url, {withCredentials: true}).then(r => r.data)
+    return cache[entry]
   }
-  cache.languages = axios.get('/stldevs-api/toplangs')
-  return cache.languages
 }
 
-function listDevelopers() {
-  if (cache.developers) {
-    return cache.developers
-  }
-  cache.developers = axios.get('/stldevs-api/topdevs')
-  return cache.developers
-}
+export const listLanguages = cached('langs', '/stldevs-api/toplangs')
+export const listDevelopers = cached('devs', '/stldevs-api/devs')
+export const listOrganizations = cached('orgs', '/stldevs-api/toporgs')
+export const getMe = cached('me', '/stldevs-api/me')
 
-function listOrganizations() {
-  if (cache.organizations) {
-    return cache.organizations
-  }
-  cache.organizations = axios.get('/stldevs-api/toporgs')
-  return cache.organizations
-}
-
-function getProfile(login) {
+export function getProfile(login) {
   if (cache.profiles[login]) {
     return cache.profiles[login]
   }
-  cache.profiles[login] = axios.get(`/stldevs-api/profile/${login}`)
+  cache.profiles[login] = axios.get(`/stldevs-api/profile/${login}`).then(r => r.data)
   return cache.profiles[login]
 }
 
-function getLang(lang) {
+export function getLang(lang) {
   lang = lang.replace('#', '%23')
-  if (cache.langs[lang]) {
-    return cache.langs[lang]
+  if (cache.lang[lang]) {
+    return cache.lang[lang]
   }
-  cache.langs[lang] = axios.get(`/stldevs-api/lang/${lang}`)
-  return cache.langs[lang]
+  cache.lang[lang] = axios.get(`/stldevs-api/lang/${lang}`).then(r => r.data)
+  return cache.lang[lang]
 }
 
-function search(type, query) {
-  return axios.get(`/stldevs-api/search?type=${type}&q=${query}`)
+export function search(type, query) {
+  return axios.get(`/stldevs-api/search?type=${type}&q=${query}`).then(r => r.data)
 }
 
-function login() {
-  cache.me = axios.get(`/stldevs-api/login`)
-  return cache.me
-}
-
-async function logout() {
-  await axios.get(`/stldevs-api/logout`, {withCredentials: true})
+export async function logout() {
+  await axios.get(`/stldevs-api/logout`, {withCredentials: true}).then(r => r.data)
   cache.me = null
-}
-
-function getMe() {
-  if (cache.me) {
-    return cache.me
-  }
-  cache.me = axios.get(`/stldevs-api/me`, {withCredentials: true})
-  return cache.me
-}
-
-export default {
-  listLanguages,
-  listDevelopers,
-  listOrganizations,
-  getProfile,
-  getLang,
-  search,
-  login,
-  logout,
-  getMe
 }

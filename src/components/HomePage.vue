@@ -13,24 +13,23 @@
 
       <h3>Did you know?</h3>
       <p>
-        There are over 1,000 developers from St. Louis on Github that have pushed to over 4,000 code repositories.
+        There are over 3,000 developers from St. Louis on Github that have pushed to over 6,000 code repositories.
       </p>
       <p>
         The creator of the sublime-text git plugin is from St. Louis. Another St. Louisan created a JavaScript CMS and
-        yet
-        another made a Dropbox-like sync tool in pure shell script!
+        yet another made a Dropbox-like sync tool in pure shell script!
       </p>
       <p>
         We have many talented and driven developers here and this site's goal is to show off our projects to the city
-        and
-        the rest of the world.
+        and the rest of the world.
       </p>
 
       <h3>Contribute</h3>
 
-      <p>Contributions are welcome to <a href="http://github.com/jakecoffman/stldevs">the backend (Go)</a> or <a
-        href="https://github.com/jakecoffman/stldevs-vue">the frontend (Vuejs)</a>! Filing issues is the easiest way to
-        contribute.</p>
+      <p>
+        Contributions are welcome to <a href="http://github.com/jakecoffman/stldevs">the API</a> or <a
+        href="https://github.com/jakecoffman/stldevs-vue">the UI</a>! Filing issues is the easiest way to contribute.
+      </p>
     </article>
   </div>
 </template>
@@ -43,7 +42,5 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

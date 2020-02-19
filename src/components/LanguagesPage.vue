@@ -16,7 +16,11 @@
         </thead>
         <tbody>
         <tr v-for="l in response.langs" :key="l.Language">
-          <td><router-link :to="{name: 'Language', params: {lang: l.Language}}" @click.native="getLang(l.Language)">{{l.Language}}</router-link></td>
+          <td>
+            <router-link :to="{name: 'Language', params: {lang: l.Language}}" @click.native="getLang(l.Language)">
+              {{l.Language}}
+            </router-link>
+          </td>
           <td>{{l.Count}}</td>
           <td>{{l.Users}}</td>
         </tr>
@@ -27,7 +31,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {listLanguages, getLang} from '@/lib/stldevs'
 
 export default {
   name: 'LanguagesPage',
@@ -37,14 +41,12 @@ export default {
     }
   },
   methods: {
-    getLang: stldevs.getLang
+    getLang
   },
-  created () {
-    stldevs.listLanguages().then(r => (this.response = r.data))
+  async created () {
+    this.response = await listLanguages()
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

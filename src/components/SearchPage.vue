@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs'
+import {search} from '@/lib/stldevs'
 
 export default {
   name: 'DevelopersPage',
@@ -81,13 +81,13 @@ export default {
       this.status = 1
       this.usersStatus = 1
       this.reposStatus = 1
-      stldevs.search('users', query).then(r => {
-        this.users = r.data
+      search('users', query).then(r => {
+        this.users = r
         this.usersStatus = 2
         this.status = 2
       })
-      stldevs.search('repos', query).then(r => {
-        this.repos = r.data
+      search('repos', query).then(r => {
+        this.repos = r
         this.reposStatus = 2
         this.status = 2
       })
@@ -105,8 +105,6 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .search {
     margin: 1em;

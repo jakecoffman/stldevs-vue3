@@ -14,7 +14,7 @@
         <icon name="users"></icon>
         <span>Developers</span>
       </router-link>
-      <router-link to="/organizations"  @click.native="listOrgs()">
+      <router-link to="/organizations"  @click.native="listOrganizations()">
         <icon name="sitemap"></icon>
         <span>Organizations</span>
       </router-link>
@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import stldevs from '@/lib/stldevs';
+import {listLanguages, listDevelopers, listOrganizations} from '@/lib/stldevs';
 
 export default {
   methods: {
-    listLanguages: stldevs.listLanguages,
-    listDevelopers: stldevs.listDevelopers,
-    listOrgs: stldevs.listOrganizations
+    listLanguages,
+    listDevelopers,
+    listOrganizations
   }
 }
 </script>
