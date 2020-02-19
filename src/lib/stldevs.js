@@ -17,6 +17,7 @@ function cached(entry, url) {
   }
 }
 
+export const lastRun = cached('last-run', '/stldevs-api/last-run')
 export const listLanguages = cached('langs', '/stldevs-api/toplangs')
 export const listDevelopers = cached('devs', '/stldevs-api/devs')
 export const listOrganizations = cached('orgs', '/stldevs-api/toporgs')

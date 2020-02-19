@@ -4,7 +4,7 @@
       <icon name="spinner" pulse scale="2"></icon>
     </div>
     <article v-else>
-      <em class="lastrun">Last run at {{response.lastrun | date}}</em>
+      <last-run/>
 
       <table>
         <thead>
@@ -31,10 +31,13 @@
 </template>
 
 <script>
+import LastRun from "@/components/LastRun"
 import {listDevelopers, getProfile} from '@/lib/stldevs'
 
 export default {
-  name: 'DevelopersPage',
+  components: {
+    LastRun
+  },
   data () {
     return {
       response: null

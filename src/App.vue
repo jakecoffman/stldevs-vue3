@@ -39,9 +39,12 @@
 </template>
 
 <script>
-import {listLanguages, listDevelopers, listOrganizations} from '@/lib/stldevs';
+import {listLanguages, listDevelopers, listOrganizations, lastRun} from '@/lib/stldevs';
 
 export default {
+  created() {
+    lastRun()
+  },
   methods: {
     listLanguages,
     listDevelopers,
