@@ -4,7 +4,8 @@
       <icon name="spinner" pulse scale="2"></icon>
     </div>
     <article v-else>
-      <h3>{{response.count}} {{$route.params.lang}} users in St. Louis</h3>
+      <h3 ref="top">{{response.count}} {{$route.params.lang}} users in St. Louis</h3>
+      <p class="page-of">Page {{page+1}} of {{Math.round(response.count/pageSize)}}</p>
       <div v-for="lang in paginated" :key="lang.Owner">
         <router-link :to="`/developers/${lang.Owner}`">{{lang.Owner}}</router-link>
         has <b>{{lang.Count}}</b> <icon name="star"/> on {{$route.params.lang}} repos, with popular ones like:
@@ -16,6 +17,14 @@
             (<b>{{r.StargazersCount}}</b> <icon name="star"/>) <small>{{r.Description || '(No description)'}}</small>
           </li>
         </ul>
+      </div>
+      <div class="flex">
+        <div class="flex-1">
+          <button class="flex-1" @click="prev()">Previous</button>
+        </div>
+        <div>
+          <button @click="next()">Next</button>
+        </div>
       </div>
     </article>
   </div>
@@ -30,7 +39,7 @@ export default {
     return {
       response: null,
       page: 0,
-      pageSize: 100
+      pageSize: 25
     }
   },
   computed: {
@@ -48,12 +57,14 @@ export default {
         return
       }
       this.page++
+      setTimeout(() => document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'}),100);
     },
     prev() {
       if (this.page === 0) {
         return
       }
       this.page--
+      setTimeout(() => document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'}),100);
     }
   },
   async created () {
@@ -67,5 +78,10 @@ export default {
     .avatar {
       height: 200px;
     }
+  }
+  .page-of {
+    text-align: right;
+    padding: 0;
+    margin: 0;
   }
 </style>

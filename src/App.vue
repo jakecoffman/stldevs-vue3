@@ -197,8 +197,14 @@ export default {
     border-radius: 4px;
   }
   button {
+    font-size: 12pt;
+    padding: .25rem .5rem;
     border: 1px solid;
-    border-radius: 4px;
+    border-radius: 2px;
+    background: #c9c1ff;
+  }
+  button:hover {
+    cursor: pointer;
   }
 
   .profile {
