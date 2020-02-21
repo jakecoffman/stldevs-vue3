@@ -6,8 +6,8 @@
     </div>
     <article v-else>
       <h3 ref="top">{{response.count}} {{$route.params.lang}} users in St. Louis</h3>
-      <p class="page-of">Page {{page+1}} of {{pages}}</p>
-      <div v-for="lang in paginated" :key="lang.Owner">
+      <p class="page-of">Page {{page}} of {{pages}}</p>
+      <div v-for="lang in response.languages" :key="lang.Owner">
         <router-link :to="`/developers/${lang.Owner}`">{{lang.Owner}}</router-link>
         has <b>{{lang.Count}}</b> <icon name="star"/> on {{$route.params.lang}} repos, with popular ones like:
         <ul>
@@ -25,7 +25,7 @@
             Previous
           </button>
         </div>
-        <div class="flex-1 center">Page {{page+1}}/{{pages}}</div>
+        <div class="flex-1 center">Page {{page}} of {{pages}}</div>
         <div>
           <button @click="next()" :disabled="!morePages">
             Next
@@ -50,6 +50,7 @@ export default {
     return {
       response: null,
       page: 0,
+      offset: 0,
       pageSize: 25
     }
   },
@@ -60,35 +61,30 @@ export default {
       }
       return Math.ceil(this.response.count / this.pageSize)
     },
-    paginated() {
-      if (!this.response) {
-        return []
-      }
-      const start = this.page * this.pageSize
-      return this.response.languages.slice(start, start + this.pageSize)
-    },
     morePages() {
       return this.page+1 < this.pages
     }
   },
   methods: {
-    next() {
-      if (this.page * this.pageSize > this.response.languages.length) {
-        return
-      }
+    async next() {
       this.page++
+      this.offset += this.pageSize
+      this.$router.push({query: {page: this.page.toString()}})
       setTimeout(() => document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'}),100);
+      this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
     },
-    prev() {
-      if (this.page === 0) {
-        return
-      }
+    async prev() {
       this.page--
+      this.offset -= this.pageSize
+      this.$router.push({query: {page: this.page > 0 ? this.page.toString() : undefined}})
       setTimeout(() => document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'}),100);
+      this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
     }
   },
   async created () {
-    this.response = await getLang(this.$route.params.lang)
+    this.page = Number(this.$route.query.page) || 0
+    this.offset = this.page * this.pageSize
+    this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
   }
 }
 </script>

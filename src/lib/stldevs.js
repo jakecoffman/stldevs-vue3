@@ -31,13 +31,14 @@ export function getProfile(login) {
   return cache.profiles[login]
 }
 
-export function getLang(lang) {
+export function getLang(lang, offset, limit) {
   lang = lang.replace('#', '%23')
-  if (cache.lang[lang]) {
-    return cache.lang[lang]
+  const key = lang+offset+limit
+  if (cache.lang[key]) {
+    return cache.lang[key]
   }
-  cache.lang[lang] = axios.get(`/stldevs-api/lang/${lang}`).then(r => r.data)
-  return cache.lang[lang]
+  cache.lang[key] = axios.get(`/stldevs-api/lang/${lang}?offset=${offset}&limit=${limit}`).then(r => r.data)
+  return cache.lang[key]
 }
 
 export function search(type, query) {

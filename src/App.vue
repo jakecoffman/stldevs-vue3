@@ -6,15 +6,15 @@
         <icon name="home"></icon>
         <span>Home</span>
       </router-link>
-      <router-link to="/languages" @click.native="listLanguages()">
+      <router-link to="/languages">
         <icon name="code"></icon>
         <span>Languages</span>
       </router-link>
-      <router-link to="/developers"  @click.native="listDevelopers()">
+      <router-link to="/developers">
         <icon name="users"></icon>
         <span>Developers</span>
       </router-link>
-      <router-link to="/organizations"  @click.native="listOrganizations()">
+      <router-link to="/organizations">
         <icon name="sitemap"></icon>
         <span>Organizations</span>
       </router-link>
@@ -32,16 +32,11 @@
 </template>
 
 <script>
-import {listLanguages, listDevelopers, listOrganizations, lastRun} from '@/lib/stldevs';
+import {lastRun} from '@/lib/stldevs';
 
 export default {
   created() {
     lastRun()
-  },
-  methods: {
-    listLanguages,
-    listDevelopers,
-    listOrganizations
   }
 }
 </script>

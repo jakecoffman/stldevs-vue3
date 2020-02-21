@@ -17,7 +17,7 @@
         <tbody>
         <tr v-for="l in response.langs" :key="l.Language">
           <td>
-            <router-link :to="{name: 'Language', params: {lang: l.Language}}" @click.native="getLang(l.Language)">
+            <router-link :to="{name: 'Language', params: {lang: l.Language}}">
               {{l.Language}}
             </router-link>
           </td>
