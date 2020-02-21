@@ -27,7 +27,7 @@
         <span>You</span>
       </router-link>
     </nav>
-    <router-view class="wrap"/>
+    <router-view/>
   </div>
 </template>
 
@@ -71,16 +71,16 @@ export default {
   }
 
   #app {
-    min-height: 100%;
+    height: 100%;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    display: flex;
-    @media screen and (max-width: $break-small) {
-      flex-direction: column;
-    }
     font-size: 1.1em;
+    @media screen and (min-width: $break-small+1) {
+      display: grid;
+      grid-template-columns: 12em 1fr;
+    }
   }
 
   .sidebar {
@@ -95,23 +95,11 @@ export default {
     @media screen and (min-width: $break-small+1) {
       display: flex;
       flex-direction: column;
-      width: 12em;
       border-right: 1px solid rgba(0, 0, 0, 0.14);
       h1 {
         padding-left: 1em;
       }
-      position: fixed;
-      top: 0;
-      left: 0;
       height: 100%;
-    }
-  }
-
-  @media screen and (min-width: $break-small+1) {
-    .wrap {
-      margin-left: 12em;
-      width: 100%;
-      min-height: 100%;
     }
   }
 
@@ -191,10 +179,10 @@ export default {
   }
   button {
     font-size: 12pt;
-    padding: .25rem .5rem;
+    padding: .5rem 1rem;
     border: 1px solid;
     border-radius: 2px;
-    background: #c9c1ff;
+    background: #4caf50;
   }
   button[disabled] {
     background: #d8d8d8;
