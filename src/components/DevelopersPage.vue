@@ -1,7 +1,8 @@
 <template>
   <div class="page">
+    <hero/>
     <div class="loading" v-if="!response">
-      <icon name="spinner" pulse scale="2"></icon>
+      <spinner/>
     </div>
     <article v-else>
       <last-run/>
@@ -32,11 +33,15 @@
 
 <script>
 import LastRun from "@/components/LastRun"
+import Hero from '@/components/Hero'
+import Spinner from '@/components/Spinner'
 import {listDevelopers, getProfile} from '@/lib/stldevs'
 
 export default {
   components: {
-    LastRun
+    LastRun,
+    Hero,
+    Spinner
   },
   data () {
     return {

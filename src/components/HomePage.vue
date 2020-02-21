@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <hero/>
     <article>
       <h3>Hello world!</h3>
       <p>
@@ -35,8 +36,12 @@
 </template>
 
 <script>
+import Hero from '@/components/Hero'
+
 export default {
-  name: 'HomePage',
+  components: {
+    Hero
+  },
   data () {
     return {}
   }

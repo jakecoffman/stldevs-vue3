@@ -1,7 +1,8 @@
 <template>
   <div class="page">
+    <hero/>
     <div class="loading" v-if="!response">
-      <icon name="spinner" pulse scale="2"></icon>
+      <spinner/>
     </div>
     <article v-else>
       <section class="profile">
@@ -45,11 +46,16 @@
 </template>
 
 <script>
+import Hero from '@/components/Hero'
+import Spinner from '@/components/Spinner'
 import {getProfile, getMe} from '@/lib/stldevs'
 import axios from "axios";
 
 export default {
-  name: 'ProfilePage',
+  components: {
+    Hero,
+    Spinner
+  },
   data () {
     return {
       response: null,

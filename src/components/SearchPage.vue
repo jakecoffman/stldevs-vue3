@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <hero/>
     <div class="search">
       <input type="text" v-model="query" @keyup.enter="search(query)" placeholder="Search"/>
       <button @click="search(query)">
@@ -12,7 +13,7 @@
       <article>Search for users or repositories</article>
     </div>
     <div class="loading" v-if="status === 1">
-      <icon name="spinner" pulse scale="2"></icon>
+      <spinner/>
     </div>
     <transition name="page">
     <div v-if="status === 2">
@@ -60,9 +61,14 @@
 
 <script>
 import {search} from '@/lib/stldevs'
+import Hero from '@/components/Hero'
+import Spinner from '@/components/Spinner'
 
 export default {
-  name: 'DevelopersPage',
+  components: {
+    Hero,
+    Spinner
+  },
   data () {
     return {
       status: 0, // 0 - initial, 1 - loading, 2 - results

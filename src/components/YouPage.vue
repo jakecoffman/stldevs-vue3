@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <hero/>
     <article>
       <div v-if="!me">
         <p>You aren't logged in. You can login to opt out of this website.</p>
@@ -28,9 +29,12 @@
 <script>
 import {getMe, logout} from '@/lib/stldevs'
 import axios from "axios";
+import Hero from '@/components/Hero'
 
 export default {
-  name: 'ProfilePage',
+  components: {
+    Hero
+  },
   data () {
     return {
       me: null

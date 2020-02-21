@@ -27,14 +27,7 @@
         <span>You</span>
       </router-link>
     </nav>
-    <div class="wrap">
-      <header class="header">
-        <h2>{{$route.params.lang || $route.params.login || $route.name}}</h2>
-      </header>
-      <transition name="page" mode="out-in">
-        <router-view/>
-      </transition>
-    </div>
+    <router-view class="wrap"/>
   </div>
 </template>
 
