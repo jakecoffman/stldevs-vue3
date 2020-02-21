@@ -69,16 +69,16 @@ export default {
     async next() {
       this.page++
       this.offset += this.pageSize
-      this.$router.push({query: {page: this.page.toString()}})
-      setTimeout(() => document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'}),100);
       this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
+      document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'})
+      await this.$router.push({query: {page: this.page.toString()}})
     },
     async prev() {
       this.page--
       this.offset -= this.pageSize
-      this.$router.push({query: {page: this.page > 0 ? this.page.toString() : undefined}})
-      setTimeout(() => document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'}),100);
+      document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'})
       this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
+      await this.$router.push({query: {page: this.page > 0 ? this.page.toString() : undefined}})
     }
   },
   async created () {
