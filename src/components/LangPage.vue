@@ -70,15 +70,19 @@ export default {
       this.page++
       this.offset += this.pageSize
       this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
-      document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'})
       await this.$router.push({query: {page: this.page.toString()}})
+      this.$nextTick(() => {
+        document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'})
+      })
     },
     async prev() {
       this.page--
       this.offset -= this.pageSize
-      document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'})
       this.response = await getLang(this.$route.params.lang, this.offset, this.pageSize)
       await this.$router.push({query: {page: this.page > 0 ? this.page.toString() : undefined}})
+      this.$nextTick(() => {
+        document.getElementsByTagName('header')[0].scrollIntoView({behavior: 'smooth'})
+      })
     }
   },
   async created () {
