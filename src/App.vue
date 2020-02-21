@@ -203,6 +203,11 @@ export default {
     border-radius: 2px;
     background: #c9c1ff;
   }
+  button[disabled] {
+    background: #d8d8d8;
+    color: #585858;
+    cursor: not-allowed;
+  }
   button:hover {
     cursor: pointer;
   }
@@ -242,6 +247,9 @@ export default {
   }
   .flex-1 {
     flex: 1;
+  }
+  .center {
+    text-align: center;
   }
 
   .page-enter-active, .page-leave-active {

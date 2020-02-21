@@ -5,7 +5,7 @@
     </div>
     <article v-else>
       <h3 ref="top">{{response.count}} {{$route.params.lang}} users in St. Louis</h3>
-      <p class="page-of">Page {{page+1}} of {{Math.round(response.count/pageSize)}}</p>
+      <p class="page-of">Page {{page+1}} of {{pages}}</p>
       <div v-for="lang in paginated" :key="lang.Owner">
         <router-link :to="`/developers/${lang.Owner}`">{{lang.Owner}}</router-link>
         has <b>{{lang.Count}}</b> <icon name="star"/> on {{$route.params.lang}} repos, with popular ones like:
@@ -19,11 +19,16 @@
         </ul>
       </div>
       <div class="flex">
-        <div class="flex-1">
-          <button class="flex-1" @click="prev()">Previous</button>
-        </div>
         <div>
-          <button @click="next()">Next</button>
+          <button class="flex-1" @click="prev()" :disabled="page === 0">
+            Previous
+          </button>
+        </div>
+        <div class="flex-1 center">Page {{page+1}}/{{pages}}</div>
+        <div>
+          <button @click="next()" :disabled="!morePages">
+            Next
+          </button>
         </div>
       </div>
     </article>
@@ -43,12 +48,21 @@ export default {
     }
   },
   computed: {
+    pages() {
+      if (this.response === null) {
+        return 0
+      }
+      return Math.ceil(this.response.count / this.pageSize)
+    },
     paginated() {
       if (!this.response) {
         return []
       }
       const start = this.page * this.pageSize
       return this.response.languages.slice(start, start + this.pageSize)
+    },
+    morePages() {
+      return this.page+1 < this.pages
     }
   },
   methods: {
