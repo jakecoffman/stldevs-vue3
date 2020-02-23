@@ -6,26 +6,26 @@
     </div>
     <article v-else>
       <section class="profile">
-        <img class="avatar" :src="response.profile.User.avatar_url">
+        <img class="avatar" :src="response.User.avatar_url">
         <ul>
           <li v-if="me && me.IsAdmin">
-            User is <span v-if="response.profile.User.Hide">hidden</span><span v-else>visible</span>.
-            <button @click="toggleHide(!response.profile.User.Hide)">
+            User is <span v-if="response.User.Hide">hidden</span><span v-else>visible</span>.
+            <button @click="toggleHide(!response.User.Hide)">
               Toggle
             </button>
           </li>
-          <li><a :href="`https://github.com/${response.profile.User.login}`" target="_blank">
-            {{response.profile.User.name || response.profile.User.login}} <icon name="external-link-alt" class="sup" scale="0.75"/>
+          <li><a :href="`https://github.com/${response.User.login}`" target="_blank">
+            {{response.User.name || response.User.login}} <icon name="external-link-alt" class="sup" scale="0.75"/>
           </a></li>
-          <li>{{response.profile.User.blog}}</li>
-          <li>{{response.profile.User.email}}</li>
-          <li>{{response.profile.User.followers}} followers</li>
-          <li>{{response.profile.User.public_repos}} repos</li>
-          <li>{{response.profile.User.public_gists}} gists</li>
+          <li>{{response.User.blog}}</li>
+          <li>{{response.User.email}}</li>
+          <li>{{response.User.followers}} followers</li>
+          <li>{{response.User.public_repos}} repos</li>
+          <li>{{response.User.public_gists}} gists</li>
         </ul>
       </section>
       <section class="code">
-        <div v-for="(infos, lang) in response.profile.Repos" :key="lang">
+        <div v-for="(infos, lang) in response.Repos" :key="lang">
           <h3 :id="lang">{{lang}}</h3>
           <section v-for="repo in infos" :key="repo.Name" class="repo">
             <div class="flex">

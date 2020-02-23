@@ -27,7 +27,7 @@ export function getProfile(login) {
   if (cache.profiles[login]) {
     return cache.profiles[login]
   }
-  cache.profiles[login] = axios.get(`/stldevs-api/profile/${login}`).then(r => r.data)
+  cache.profiles[login] = axios.get(`/stldevs-api/devs/${login}`).then(r => r.data)
   return cache.profiles[login]
 }
 
